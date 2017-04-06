@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ManagerContactAPI extends BaseAPI{
 
-    protected ManagerContactAPI(String accessToken) {
+    public ManagerContactAPI(String accessToken) {
         super(accessToken);
     }
 
@@ -24,7 +24,7 @@ public class ManagerContactAPI extends BaseAPI{
      */
     public GetDepartmentListResponse getDepartmentList() {
         String url = APIAddress.MANAGER_CONTACT_GET_DEPARTMENT_LIST;
-        BaseResponse response = executePost(url, null);
+        BaseResponse response = executeGet(url);
         if (response == null)
             return null;
         String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
@@ -39,7 +39,7 @@ public class ManagerContactAPI extends BaseAPI{
     public GetDepartmentDetailResponse getDepartmentDetail(long id) {
         String url = APIAddress.MANAGER_CONTACT_GET_DEPARTMENT_INFO;
         url = url.replace("ID",id+"");
-        BaseResponse response = executePost(url, null);
+        BaseResponse response = executeGet(url);
         if (response == null)
             return null;
         String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
@@ -147,7 +147,7 @@ public class ManagerContactAPI extends BaseAPI{
     public BaseResponse deleteUser(String userid) {
         String url = APIAddress.MANAGER_CONTACT_DELETE_USER;
         url = url.replace("ID",userid);
-        BaseResponse response = executePost(url, null);
+        BaseResponse response = executeGet(url);
         return response;
     }
 
@@ -206,7 +206,7 @@ public class ManagerContactAPI extends BaseAPI{
     public GetDepartmentUserListResponse getDepartmentUsers(long departmentId) {
         String url = APIAddress.MANAGER_CONTACT_GET_DEPARTMENT_USERS;
         url = url.replace("DEPARTMENT_ID",departmentId+"");
-        BaseResponse response = executePost(url, null);
+        BaseResponse response = executeGet(url);
         if (response == null)
             return null;
         String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
@@ -275,7 +275,7 @@ public class ManagerContactAPI extends BaseAPI{
     public GetDepartmentUserListResponse getDepartmentUsersDetail(long departmentId) {
         String url = APIAddress.MANAGER_CONTACT_GET_DEPARTMENT_USERS_DETAIL;
         url = url.replace("DEPARTMENT_ID",departmentId+"");
-        BaseResponse response = executePost(url, null);
+        BaseResponse response = executeGet(url);
         if (response == null)
             return null;
         String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
@@ -288,7 +288,7 @@ public class ManagerContactAPI extends BaseAPI{
      */
     public GetAdminResponse getAdmins() {
         String url = APIAddress.MANAGER_CONTACT_GET_ADMIN_LIST;
-        BaseResponse response = executePost(url, null);
+        BaseResponse response = executeGet(url);
         if (response == null)
             return null;
         String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();

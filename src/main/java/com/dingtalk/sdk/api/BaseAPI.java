@@ -76,7 +76,7 @@ public abstract class BaseAPI {
             if (StringTools.isNotEmpty(config.channelSecret))
                 postUrl = postUrl.replace("CHANNELSECRET", config.channelSecret);
         }
-        if (StringTools.isNotEmpty(postUrl)) return null;
+        if (StringTools.isEmpty(postUrl)) return null;
         response = NetWorkCenter.post(postUrl, json, files);
         return response;
     }

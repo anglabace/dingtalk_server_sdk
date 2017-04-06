@@ -114,4 +114,60 @@ public class UpdateUserRequest extends BaseRequest{
     public void setExtattr(HashMap extattr) {
         this.extattr = extattr;
     }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Long> getDepartmentIds() {
+        return departmentIds;
+    }
+
+    public String getOrderInDepts() {
+        return orderInDepts;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getJobnumber() {
+        return jobnumber;
+    }
+
+    public boolean isHide() {
+        return isHide;
+    }
+
+    public boolean isSenior() {
+        return isSenior;
+    }
+
+    public HashMap getExtattr() {
+        return extattr;
+    }
 }

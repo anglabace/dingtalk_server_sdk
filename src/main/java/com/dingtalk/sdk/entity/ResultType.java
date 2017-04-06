@@ -8,14 +8,35 @@ package com.dingtalk.sdk.entity;
  */
 public enum ResultType {
     /**
-     * 未知
+     * 分机号在公司已存在
      */
-    SYSTEM_UNKNOW(-2, "未知状态"),
+    TELEPHONE_EXSIT(40100, "分机号已在公司存在"),
+    /**
+     * 手机号在通讯录中已存在
+     */
+    PHONE_EXSIT(60104, "手机号已经在公司存在了"),
+    /**
+     * 不合法的用户ID
+     */
+    ILLEGAL_USERID(40003, "不合法的UserId"),
 
     /**
      * 请求成功
      */
     SUCCESS(0, "请求成功"),
+
+    /**
+     * 请求失败:需要使用Get方式访问
+     */
+    NEED_GET(43001, "需要使用Get请求"),
+    /**
+     * 不合法的AccessToken
+     */
+    ACCESS_TOKEN(40014, "不合法的access_token"),
+    /**
+     * 父亲部门不存在
+     */
+    PARENT_DEPARTMENT_NOT_EXSIT(60004, "父亲部门不存在"),
 
     /**
      * 其他错误
