@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * ok
  * Created by henrybit on 2017/4/6.
+ * @version 1.0
  */
 public class TestManagerContactAPI {
     public static void main(String[] args) {
@@ -31,7 +33,7 @@ public class TestManagerContactAPI {
         //deleteDepartment(managerContactAPI);
 
         //创建一个用户
-        //createUser(managerContactAPI);
+        createUser(managerContactAPI);
 
         //更新一个用户
         //updateUser(managerContactAPI);

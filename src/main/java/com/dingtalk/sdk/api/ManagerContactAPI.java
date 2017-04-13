@@ -294,4 +294,17 @@ public class ManagerContactAPI extends BaseAPI{
         String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
         return JSONTools.parse(resultJson, GetAdminResponse.class);
     }
+
+    /**
+     * 获取内网权限范围
+     * @return GetAuthScopeResponse
+     */
+    public GetAuthScopeResponse getAuthScope() {
+        String url = APIAddress.MANAGER_CONTACT_GET_AUTH_SCOPE;
+        BaseResponse response = executeGet(url);
+        if (response == null)
+            return null;
+        String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
+        return JSONTools.parse(resultJson, GetAuthScopeResponse.class);
+    }
 }

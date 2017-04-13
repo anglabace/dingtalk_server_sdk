@@ -2,9 +2,7 @@ package com.dingtalk.sdk.api;
 
 import com.dingtalk.sdk.constant.APIAddress;
 import com.dingtalk.sdk.constant.Config;
-import com.dingtalk.sdk.response.BaseResponse;
-import com.dingtalk.sdk.response.GetAccessTokenResponse;
-import com.dingtalk.sdk.response.GetAdminResponse;
+import com.dingtalk.sdk.response.*;
 import com.dingtalk.sdk.tools.JSONTools;
 
 /**
@@ -31,5 +29,49 @@ public class TokenAPI extends BaseAPI{
             return null;
         String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
         return JSONTools.parse(resultJson, GetAccessTokenResponse.class);
+    }
+
+
+    /**
+     * 获取微应用后台管理免登SsoToken<br>
+     * SsoToken只在微应用后台管理免登服务中使用
+     * @return
+     */
+    public GetSSOTokenResponse createSSOToken() {
+        String url = APIAddress.GET_SSO_TOKEN;
+        BaseResponse response = executeGet(url);
+        if (response == null)
+            return null;
+        String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
+        return JSONTools.parse(resultJson, GetSSOTokenResponse.class);
+    }
+
+    /**
+     * 免登获取用户信息<br>
+     * @return GetSSOUserResponse
+     */
+    public GetSSOUserResponse getSSOUser(String code) {
+        String url = APIAddress.SSO_USER_INFO;
+        url = url.replace("CODE", code);
+        BaseResponse response = executeGet(url);
+        if (response == null)
+            return null;
+        String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
+        return JSONTools.parse(resultJson, GetSSOUserResponse.class);
+    }
+
+    /**
+     * 免登录获取管理员信息<br>
+     * @param code
+     * @return GetSSOAdminResponse
+     */
+    public GetSSOAdminResponse getSSOAdmin(String code) {
+        String url = APIAddress.SSO_ADMIN_INFO;
+        url = url.replace("CODE", code);
+        BaseResponse response = executeGet(url);
+        if (response == null)
+            return null;
+        String resultJson = isSuccess(response.getErrcode()) ? response.getErrmsg() : response.toJsonString();
+        return JSONTools.parse(resultJson, GetSSOAdminResponse.class);
     }
 }
