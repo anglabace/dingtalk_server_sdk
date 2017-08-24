@@ -1,6 +1,8 @@
 package com.dingtalk.sdk.tools;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dingtalk.sdk.response.BaseResponse;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -9,6 +11,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -17,12 +20,17 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.RedirectLocations;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -58,6 +66,54 @@ public final class NetWorkCenter {
         LOG.warn("Oh,my god!!!How do you call this method?!");
         LOG.warn("You shouldn't create me!!!");
         LOG.warn("Look my doc again!!!");
+    }
+
+    /**
+     * 下载一个文件
+     * @param url 文件url
+     * @param fileDir 存放到本地的目录路径
+     * @return string-本地下载后的存放路径
+     */
+    public static String download(String url, String fileDir) {
+        HttpGet httpGet = new HttpGet(url);
+        CloseableHttpResponse response = null;
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(2000).build();
+        httpGet.setConfig(requestConfig);
+
+        try {
+            HttpContext localContext = new BasicHttpContext();
+            response = httpClient.execute(httpGet, localContext);
+            RedirectLocations locations = (RedirectLocations) localContext.getAttribute(HttpClientContext.REDIRECT_LOCATIONS);
+            if (locations != null) {
+                URI downloadUrl = locations.getAll().get(0);
+                String filename = downloadUrl.toURL().getFile();
+                File downloadFile = new File(fileDir + File.separator + filename);
+                FileUtils.writeByteArrayToFile(downloadFile, EntityUtils.toByteArray(response.getEntity()));
+                return downloadFile.getAbsolutePath();
+            } else {
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    System.out.println("request url failed, http code=" + response.getStatusLine().getStatusCode() + ", url=" + url);
+                    return "";
+                }
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    String resultStr = EntityUtils.toString(entity, "utf-8");
+                    return resultStr;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (response != null) {
+                try {
+                    response.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     /**

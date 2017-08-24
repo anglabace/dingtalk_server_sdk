@@ -35,6 +35,15 @@ public abstract class BaseAPI {
         header.put("Content-Type", "application/json");
     }
 
+    /**
+     * 下载一个文件到目标文件夹下
+     * @param url 访问URL
+     * @param destPath 目标文件夹
+     * @return String-文件绝对路径
+     */
+    public String download(String url, String destPath) {
+        return NetWorkCenter.download(url, destPath);
+    }
 
     /**
      * 通用post请求

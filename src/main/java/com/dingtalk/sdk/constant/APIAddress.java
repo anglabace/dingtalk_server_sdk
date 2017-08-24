@@ -66,4 +66,13 @@ public class APIAddress {
     /**删除规则-请求说明(规则被删除后,与此规则绑定的用户及部门将解绑)*/
     public final static String MANAGER_APP_DELETE_RULE = "https://oapi.dingtalk.com/microapp/rule/delete?access_token=ACCESS_TOKEN";
     /**管理APP end*/
+
+
+    /**管理多媒体 start*/
+    /**上传多媒体文件*/
+    public final static String MANAGER_MEDIA_UPLOAD = "https://oapi.dingtalk.com/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+    /**下载多媒体文件*/
+    public final static String MANAGER_MEDIA_DOWNLOAD = "https://oapi.dingtalk.com/media/downloadFile?access_token=ACCESS_TOKEN&media_id=MEDIA_ID";
+    /**管理多媒体 end*/
+
 }
